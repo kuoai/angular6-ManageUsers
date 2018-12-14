@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-6">
+    <a href="#" routerLink="/" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i>
+      返回首页
+    </a>
+  </div>
+  <div class="col-md-6">
+    <div class="btn-group pull-right">
+      <a [routerLink]="['/edit-user/'+id]" href="#" class="btn btn-secondary">编辑</a>
+      <button type="button" (click)="onDeleteClick()" class="btn btn-danger">删除</button>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="user">
+  <h3 class="card-header">
+    {{ user.name }}
+  </h3>
+  <div class="card-block">
+    <div class="col-md-12">
+      <h4 class="pull-left">用户ID: {{ id }}</h4>
+      <h4 class="pull-right">
+        收支:
+        <span
+          [class.text-danger]="hsaBalance"
+          [class.text-success]="!hsaBalance"
+        >{{ user.balance }}元</span>
+        <small>
+          <a (click)="showBalanceUpdateInput=!showBalanceUpdateInput">
+            <i class="fa fa-pencil"></i>
+          </a>
+        </small>
+      </h4>
+      <div class="updateBalance">
+        <form *ngIf="showBalanceUpdateInput" (submit)="updateBalance(id)" class="form-inline pull-right">
+          <div class="form-group">
+            <input type="text" [(ngModel)]="user.balance" name="balance" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">更新</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <hr>
+  <ul class="list-group">
+    <li class="list-group-item">
+      联系邮箱：{{ user.email }}
+    </li>
+    <li class="list-group-item">
+      联系电话：{{ user.phone }}
+    </li>
+  </ul>
+</div>
